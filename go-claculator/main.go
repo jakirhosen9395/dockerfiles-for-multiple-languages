@@ -80,7 +80,7 @@ func calculatorHandler(w http.ResponseWriter, r *http.Request) {
                 <html>
                 <head><title>Simple Calculator</title></head>
                 <body>
-                        <h1>Simple Calculator</h1>
+                        <h1>Simple Calculator by golang</h1>
 
 
                         <form action="/calculator" method="POST">
