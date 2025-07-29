@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/tn-99646/J/tasks/docker/dotnet-calculator/dotnet-calculator.csproj": {}
+    "/home/tn-99646/J/tasks/dockerfiles-for-multiple-languages/dotnet-calculator/dotnet-calculator.csproj": {}
   },
   "projects": {
-    "/home/tn-99646/J/tasks/docker/dotnet-calculator/dotnet-calculator.csproj": {
+    "/home/tn-99646/J/tasks/dockerfiles-for-multiple-languages/dotnet-calculator/dotnet-calculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/tn-99646/J/tasks/docker/dotnet-calculator/dotnet-calculator.csproj",
+        "projectUniqueName": "/home/tn-99646/J/tasks/dockerfiles-for-multiple-languages/dotnet-calculator/dotnet-calculator.csproj",
         "projectName": "dotnet-calculator",
-        "projectPath": "/home/tn-99646/J/tasks/docker/dotnet-calculator/dotnet-calculator.csproj",
+        "projectPath": "/home/tn-99646/J/tasks/dockerfiles-for-multiple-languages/dotnet-calculator/dotnet-calculator.csproj",
         "packagesPath": "/home/tn-99646/.nuget/packages/",
-        "outputPath": "/home/tn-99646/J/tasks/docker/dotnet-calculator/obj/",
+        "outputPath": "/home/tn-99646/J/tasks/dockerfiles-for-multiple-languages/dotnet-calculator/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/tn-99646/.nuget/NuGet/NuGet.Config"
