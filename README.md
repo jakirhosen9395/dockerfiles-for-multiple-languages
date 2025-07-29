@@ -1,1 +1,182 @@
-# dockerfiles-for-multiple-languages
+
+# Dockerfiles for Multiple Languages
+
+This repository contains Dockerfiles for building and running basic calculator applications in multiple programming languages. The goal of this project is to demonstrate how to containerize applications developed in different languages using Docker.
+
+The project includes the following languages:
+- .NET (C#)
+- Go
+- Java
+- Node.js
+- Python
+
+## Prerequisites
+
+Before running the Docker containers for these applications, you must install Docker on your system. Follow the steps below to install Docker on Ubuntu.
+
+### Step 1: Install Docker on Ubuntu
+
+1. Update your system's package list:
+   ```bash
+   sudo apt update
+   ```
+
+2. Upgrade your installed packages:
+   ```bash
+   sudo apt-get upgrade -y
+   ```
+
+3. Download and install Docker:
+   ```bash
+   curl -fsSL https://test.docker.com -o test-docker.sh
+   sudo sh test-docker.sh
+   ```
+
+4. Add the `docker` group and add your user to this group to avoid using `sudo` with Docker commands:
+   ```bash
+   sudo groupadd docker
+   sudo usermod -aG docker ubuntu
+   newgrp docker
+   ```
+
+5. Enable Docker services to start on boot:
+   ```bash
+   sudo systemctl enable docker.service
+   sudo systemctl enable containerd.service
+   ```
+
+After performing the above steps, Docker will be installed and ready for use.
+
+## Language-Specific Dockerfiles
+
+Each directory contains a Dockerfile for building a containerized calculator application in the respective language.
+
+### Dotnet Calculator
+
+1. Navigate to the `dotnet-calculator` directory:
+   ```bash
+   cd dockerfiles-for-multiple-languages/dotnet-calculator/
+   ```
+
+2. Build the Docker image:
+   ```bash
+   docker build -t dotnet-calculator:v1 .
+   ```
+
+3. Run the container:
+   ```bash
+   docker run -d --name dotnet-calculator -p 8080:80 dotnet-calculator:v1
+   ```
+
+4. Check if the container is running:
+   ```bash
+   docker ps
+   ```
+
+5. To stop the container:
+   ```bash
+   docker stop <container_id>
+   ```
+
+6. To remove the container:
+   ```bash
+   docker rm -f <container_id>
+   ```
+
+### Golang Calculator
+
+1. Navigate to the `go-calculator` directory:
+   ```bash
+   cd ../go-calculator/
+   ```
+
+2. Build the Docker image:
+   ```bash
+   docker build -t go-calculator .
+   ```
+
+3. Run the container:
+   ```bash
+   docker run -d --name go-calculator -p 8080:8080 go-calculator:v1
+   ```
+
+4. To stop and remove the container:
+   ```bash
+   docker stop <container_id>
+   docker rm -f <container_id>
+   ```
+
+### Java Calculator
+
+1. Navigate to the `java-calculator` directory:
+   ```bash
+   cd ../java-calculator/
+   ```
+
+2. Build the Docker image:
+   ```bash
+   docker build -t java-calculator:v1 .
+   ```
+
+3. Run the container:
+   ```bash
+   docker run -d --name java-calculator -p 8080:8080 java-calculator:v1
+   ```
+
+4. To stop and remove the container:
+   ```bash
+   docker stop java-calculator
+   docker rm -f java-calculator
+   ```
+
+### Node.js Calculator
+
+1. Navigate to the `node-calculator` directory:
+   ```bash
+   cd ../node-calculator/
+   ```
+
+2. Build the Docker image:
+   ```bash
+   docker build -t node-calculator:v1 .
+   ```
+
+3. Run the container:
+   ```bash
+   docker run -d --name node-calculator -p 8080:8080 node-calculator:v1
+   ```
+
+4. To stop and remove the container:
+   ```bash
+   docker stop node-calculator
+   docker rm -f <container_id>
+   ```
+
+### Python Calculator
+
+1. Navigate to the `python-calculator` directory:
+   ```bash
+   cd ../python-calculator/
+   ```
+
+2. Build the Docker image:
+   ```bash
+   docker build -t python-calculator:v1 .
+   ```
+
+3. Run the container:
+   ```bash
+   docker run -d --name python-calculator -p 8080:8080 python-calculator:v1
+   ```
+
+4. To stop and remove the container:
+   ```bash
+   docker stop <container_id>
+   docker rm -f <container_id>
+   ```
+
+## Conclusion
+
+This repository demonstrates how to containerize simple calculator applications written in different programming languages. You can extend this project by adding more features or adapting the code for other languages. 
+
+Feel free to fork or contribute to the repository as you like. Happy coding!
