@@ -14,4 +14,4 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o /dotnet-calculator/publish
 
 # Set the entry point to run the app
-ENTRYPOINT ["dotnet", "/dotnet-calculator/publish/dotnet-calculator.dll"]
+CMD ["dotnet", "/dotnet-calculator/publish/dotnet-calculator.dll"]
