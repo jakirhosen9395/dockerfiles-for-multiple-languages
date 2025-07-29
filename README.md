@@ -10,14 +10,6 @@ The project includes the following languages:
 - Node.js
 - Python
 
-## Output
-<p align="center">
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/dotnet.png" width="400" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/golang.png" width="400" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/java.png" width="400" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/nodejs.png" width="400" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/python.png" width="800" />
-</p>
 
 ## Prerequisites
 
@@ -231,6 +223,15 @@ Each directory contains a Dockerfile for building a containerized calculator app
    docker stop <container_id>
    docker rm -f <container_id>
    ```
+
+## Output
+<p align="center">
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/dotnet.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/golang.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/java.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/nodejs.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/python.png" width="800" />
+</p>
 
 ## Conclusion
 
