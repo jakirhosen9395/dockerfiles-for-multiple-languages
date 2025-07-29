@@ -1,0 +1,36 @@
+@model dotnet_calculator.Models.CalculatorResult
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+<body>
+    <h1>Simple Calculator</h1>
+
+    <form method="post">
+        <label for="num1">Number 1:</label>
+        <input type="text" id="num1" name="Num1" value="@Model.Num1"><br><br>
+
+        <label for="num2">Number 2:</label>
+        <input type="text" id="num2" name="Num2" value="@Model.Num2"><br><br>
+
+        <label for="operator">Operator (add, subtract, multiply, divide):</label>
+        <input type="text" id="operator" name="Operator" value="@Model.Operator"><br><br>
+
+        <input type="submit" value="Calculate">
+        <button type="button" onclick="clearResult()">Clear Result</button>
+    </form>
+
+    <p id="result">@Model.Result</p>
+    <p style="color:red;">@Model.Error</p>
+
+    <script>
+        function clearResult() {
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</body>
+</html>
