@@ -12,11 +12,11 @@ The project includes the following languages:
 
 ## Output
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/dotnet.png" width="500" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/golang.png" width="500" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/java.png" width="500" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/nodejs.png" width="500" />
-  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/python.png" width="500" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/dotnet.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/golang.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/java.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/nodejs.png" width="400" />
+  <img src="https://raw.githubusercontent.com/jakirhosen9395/dockerfiles-for-multiple-languages/main/validate/python.png" width="800" />
 </p>
 
 ## Prerequisites
