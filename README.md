@@ -47,6 +47,33 @@ Before running the Docker containers for these applications, you must install Do
 
 After performing the above steps, Docker will be installed and ready for use.
 
+## Bash Script to Run All Containers Automatically
+
+In addition to the Dockerfiles, a bash script (`docker_run_all.sh`) has been included in the repository to automatically build and run all the Docker containers for the calculator applications. This script will run all the containers on different ports without requiring manual intervention.
+
+### Steps to Run the Script
+
+1. First, ensure the script is executable:
+   ```bash
+   chmod +x run-all.sh
+   ```
+
+2. Run the script:
+   ```bash
+   ./run-all.sh
+   ```
+
+The script will automatically:
+- Build Docker images for each language (C#, Go, Java, Node.js, Python).
+- Run each container on different ports to avoid conflicts:
+  - .NET Calculator on port 8081
+  - Go Calculator on port 8082
+  - Java Calculator on port 8083
+  - Node.js Calculator on port 8084
+  - Python Calculator on port 8085
+
+This approach simplifies the process of running all containers at once.
+
 ## Language-Specific Dockerfiles
 
 Each directory contains a Dockerfile for building a containerized calculator application in the respective language.
@@ -65,7 +92,7 @@ Each directory contains a Dockerfile for building a containerized calculator app
 
 3. Run the container:
    ```bash
-   docker run -d --name dotnet-calculator -p 8080:80 dotnet-calculator:v1
+   docker run -d --name dotnet-calculator -p 8081:80 dotnet-calculator:v1
    ```
 
 4. Check if the container is running:
@@ -97,7 +124,7 @@ Each directory contains a Dockerfile for building a containerized calculator app
 
 3. Run the container:
    ```bash
-   docker run -d --name go-calculator -p 8080:8080 go-calculator:v1
+   docker run -d --name go-calculator -p 8082:8080 go-calculator:v1
    ```
 
 4. To stop and remove the container:
@@ -120,7 +147,7 @@ Each directory contains a Dockerfile for building a containerized calculator app
 
 3. Run the container:
    ```bash
-   docker run -d --name java-calculator -p 8080:8080 java-calculator:v1
+   docker run -d --name java-calculator -p 8083:8080 java-calculator:v1
    ```
 
 4. To stop and remove the container:
@@ -143,7 +170,7 @@ Each directory contains a Dockerfile for building a containerized calculator app
 
 3. Run the container:
    ```bash
-   docker run -d --name node-calculator -p 8080:8080 node-calculator:v1
+   docker run -d --name node-calculator -p 8084:8080 node-calculator:v1
    ```
 
 4. To stop and remove the container:
@@ -166,7 +193,7 @@ Each directory contains a Dockerfile for building a containerized calculator app
 
 3. Run the container:
    ```bash
-   docker run -d --name python-calculator -p 8080:8080 python-calculator:v1
+   docker run -d --name python-calculator -p 8085:8080 python-calculator:v1
    ```
 
 4. To stop and remove the container:
