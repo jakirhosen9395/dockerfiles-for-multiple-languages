@@ -10,6 +10,15 @@ The project includes the following languages:
 - Node.js
 - Python
 
+## Output
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/validate/dotnet.png" width="150" />
+  <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/validate/golang.png" width="150" />
+  <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/validate/java.png" width="150" />
+  <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/validate/nodejs.png" width="150" />
+  <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/validate/python.png" width="150" />
+</p>
+
 ## Prerequisites
 
 Before running the Docker containers for these applications, you must install Docker on your system. Follow the steps below to install Docker on Ubuntu.
@@ -73,6 +82,27 @@ The script will automatically:
   - Python Calculator on port 8085
 
 This approach simplifies the process of running all containers at once.
+
+## Bash Script to Stop and Remove All Containers
+
+A bash script (`stop_delete_containers.sh`) has been included in the repository to stop and remove all the containers created by `run-all.sh`. This script can also remove the Docker images associated with the containers, freeing up space.
+
+### Steps to Run the Stop/Delete Script
+
+1. Ensure the script is executable:
+   ```bash
+   chmod +x stop_delete_containers.sh
+   ```
+
+2. Run the script to stop and remove all containers:
+   ```bash
+   ./stop_delete_containers.sh
+   ```
+
+This script will:
+- Stop each running container.
+- Remove the stopped containers.
+- Optionally, remove the images created for the containers.
 
 ## Language-Specific Dockerfiles
 
@@ -204,6 +234,6 @@ Each directory contains a Dockerfile for building a containerized calculator app
 
 ## Conclusion
 
-This repository demonstrates how to containerize simple calculator applications written in different programming languages. You can extend this project by adding more features or adapting the code for other languages. 
+This repository demonstrates how to containerize simple calculator applications written in different programming languages. You can extend this project by adding more features or adapting the code for other languages.
 
 Feel free to fork or contribute to the repository as you like. Happy coding!
