@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
 
-// Define a struct to store the result and input values for rendering
 type CalculatorResult struct {
 	Num1     string
 	Num2     string
@@ -16,116 +16,97 @@ type CalculatorResult struct {
 	Error    string
 }
 
+var (
+	tpl *template.Template
+)
+
+// calculatorHandler handles GET (render form) and POST (compute) for /calculator
 func calculatorHandler(w http.ResponseWriter, r *http.Request) {
-	// Define a struct to store the input values and result for rendering
-	var result CalculatorResult
+	// Always render the page with whatever data we have
+	data := CalculatorResult{}
 
-	// Handle POST requests
-	if r.Method == "POST" {
-		// Parse form data
-		r.ParseForm()
-		num1 := r.FormValue("num1")
-		num2 := r.FormValue("num2")
-		operator := r.FormValue("operator")
+	switch r.Method {
+	case http.MethodGet:
+		// nothing to do; render empty form
+	case http.MethodPost:
+		if err := r.ParseForm(); err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			data.Error = "Failed to parse form"
+			break
+		}
 
-		// Store the inputs in the struct
-		result.Num1 = num1
-		result.Num2 = num2
-		result.Operator = operator
+		data.Num1 = r.FormValue("num1")
+		data.Num2 = r.FormValue("num2")
+		data.Operator = r.FormValue("operator")
 
-		var calcResult float64
-		var err string
+		if data.Num1 == "" || data.Num2 == "" || data.Operator == "" {
+			data.Error = "Missing parameters"
+			break
+		}
 
-		// Validate input values
-		if num1 == "" || num2 == "" || operator == "" {
-			err = "Missing parameters"
-		} else {
-			// Convert string inputs to float64
-			num1Float, err1 := strconv.ParseFloat(num1, 64)
-			num2Float, err2 := strconv.ParseFloat(num2, 64)
+		n1, err1 := strconv.ParseFloat(data.Num1, 64)
+		n2, err2 := strconv.ParseFloat(data.Num2, 64)
+		if err1 != nil || err2 != nil {
+			data.Error = "Invalid numbers"
+			break
+		}
 
-			if err1 != nil || err2 != nil {
-				err = "Invalid numbers"
+		switch data.Operator {
+		case "add":
+			data.Result = strconv.FormatFloat(n1+n2, 'f', -1, 64)
+		case "subtract":
+			data.Result = strconv.FormatFloat(n1-n2, 'f', -1, 64)
+		case "multiply":
+			data.Result = strconv.FormatFloat(n1*n2, 'f', -1, 64)
+		case "divide":
+			if n2 == 0 {
+				data.Error = "Cannot divide by zero"
 			} else {
-				// Perform the calculation based on the operator
-				switch operator {
-				case "add":
-					calcResult = num1Float + num2Float
-				case "subtract":
-					calcResult = num1Float - num2Float
-				case "multiply":
-					calcResult = num1Float * num2Float
-				case "divide":
-					if num2Float == 0 {
-						err = "Cannot divide by zero"
-					} else {
-						calcResult = num1Float / num2Float
-					}
-				default:
-					err = "Invalid operator"
-				}
+				data.Result = strconv.FormatFloat(n1/n2, 'f', -1, 64)
 			}
+		default:
+			data.Error = "Invalid operator (use: add, subtract, multiply, divide)"
 		}
-
-		// Set the result or error message in the struct
-		if err != "" {
-			result.Error = err
-		} else {
-			result.Result = fmt.Sprintf("Result: %f", calcResult)
-		}
+	default:
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		data.Error = "Method not allowed"
 	}
 
-	// Render the HTML template with the struct data
-	tmpl, _ := template.New("result").Parse(`
-                <html>
-                <head><title>Simple Calculator</title></head>
-                <body>
-                        <h1>Simple Calculator by golang</h1>
-
-
-                        <form action="/calculator" method="POST">
-                                <label for="num1">Number 1:</label>
-                                <input type="text" id="num1" name="num1" value="{{.Num1}}"><br><br>
-
-
-                                <label for="num2">Number 2:</label>
-                                <input type="text" id="num2" name="num2" value="{{.Num2}}"><br><br>
-
-
-                                <label for="operator">Operator (add, subtract, multiply, divide):</label>
-                                <input type="text" id="operator" name="operator" value="{{.Operator}}"><br><br>
-
-
-                                <input type="submit" value="Calculate">
-                                <button type="button" onclick="clearResult()">Clear Result</button>
-                        </form>
-
-
-                        <p id="result">{{.Result}}</p>
-                        <p style="color:red;">{{.Error}}</p>
-
-
-                        <script>
-                                function clearResult() {
-                                        document.getElementById("result").innerHTML = "";
-                                }
-                        </script>
-                </body>
-                </html>
-        `)
-
-	tmpl.Execute(w, result)
+	if err := tpl.ExecuteTemplate(w, "index.html", data); err != nil {
+		log.Printf("template execute error: %v", err)
+	}
 }
 
 func main() {
-	// Log that the server is starting
-	fmt.Println("Starting server on :8080...")
-
-	// Register the handler function for the /calculator endpoint
-	http.HandleFunc("/calculator", calculatorHandler)
-
-	// Start the web server on port 8080
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		fmt.Println("Error starting server:", err)
+	// load templates once at startup
+	var err error
+	tpl, err = template.ParseFiles("index.html")
+	if err != nil {
+		log.Fatalf("failed to parse template: %v", err)
 	}
+
+	// port from env, default 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", calculatorHandler)
+	mux.HandleFunc("/calculator", calculatorHandler)
+
+	log.Printf("Starting server on :%s ...", port)
+	if err := http.ListenAndServe(":"+port, securityHeaders(mux)); err != nil {
+		log.Fatalf("server error: %v", err)
+	}
+}
+
+// securityHeaders is a tiny middleware to add basic headers.
+func securityHeaders(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("X-Frame-Options", "DENY")
+		w.Header().Set("Referrer-Policy", "no-referrer")
+		next.ServeHTTP(w, r)
+	})
 }

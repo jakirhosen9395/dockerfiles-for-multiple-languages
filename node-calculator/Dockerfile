@@ -1,8 +1,18 @@
-FROM node:20-alpine
+# syntax=docker/dockerfile:1
+
+# -------- Builder stage --------
+FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci --only=production
 COPY . .
-ENV PORT=8080
+RUN npm prune --production
+
+# -------- Runtime stage --------
+FROM node:20-alpine
+WORKDIR /app
+
+ENV NODE_ENV=production
+COPY --from=build /app /app
 EXPOSE 8080
-CMD ["npm","start"]
+CMD ["node", "server.js"]

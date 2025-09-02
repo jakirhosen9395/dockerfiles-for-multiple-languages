@@ -1,34 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Calculator</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; }
+    label { display:block; margin: 8px 0 4px; }
+    input[type="text"] { width: 100%; padding: 8px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .actions { margin-top: 16px; display:flex; gap:8px; }
+    button, input[type="submit"] { padding: 8px 12px; cursor: pointer; }
+    .error { color: #b00020; }
+    .result { font-weight: 600; }
+    code { background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
+  </style>
 </head>
 <body>
-    <h1>Simple Calculator by golang</h1>
+  <h1>Simple Calculator (Go)</h1>
 
-    <form action="/calculator" method="POST">
-        <label for="num1">Number 1:</label>
-        <input type="text" id="num1" name="num1" value="{{.Num1}}"><br><br>
+  <form action="/calculator" method="POST" onsubmit="return true;">
+    <div class="row">
+      <div>
+        <label for="num1">Number 1</label>
+        <input type="text" id="num1" name="num1" value="{{.Num1}}" />
+      </div>
+      <div>
+        <label for="num2">Number 2</label>
+        <input type="text" id="num2" name="num2" value="{{.Num2}}" />
+      </div>
+    </div>
 
-        <label for="num2">Number 2:</label>
-        <input type="text" id="num2" name="num2" value="{{.Num2}}"><br><br>
+    <label for="operator">Operator <small>(add, subtract, multiply, divide)</small></label>
+    <input type="text" id="operator" name="operator" value="{{.Operator}}" />
 
-        <label for="operator">Operator (add, subtract, multiply, divide):</label>
-        <input type="text" id="operator" name="operator" value="{{.Operator}}"><br><br>
+    <div class="actions">
+      <input type="submit" value="Calculate" />
+      <button type="button" onclick="clearResult()">Clear</button>
+    </div>
+  </form>
 
-        <input type="submit" value="Calculate">
-        <button type="button" onclick="clearResult()">Clear Result</button>
-    </form>
+  {{ if .Result }}
+    <p class="result">Result: {{ .Result }}</p>
+  {{ end }}
+  {{ if .Error }}
+    <p class="error">{{ .Error }}</p>
+  {{ end }}
 
-    <p id="result">{{.Result}}</p>
-    <p style="color:red;">{{.Error}}</p>
-
-    <script>
-        function clearResult() {
-            document.getElementById("result").innerHTML = "";
-        }
-    </script>
+  <script>
+    function clearResult() {
+      document.getElementById("num1").value = "";
+      document.getElementById("num2").value = "";
+      document.getElementById("operator").value = "";
+      // force a visual clear by replacing content area
+      const res = document.querySelector(".result");
+      const err = document.querySelector(".error");
+      if (res) res.textContent = "";
+      if (err) err.textContent = "";
+    }
+  </script>
 </body>
 </html>
