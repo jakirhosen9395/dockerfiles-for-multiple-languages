@@ -1,9 +1,7 @@
-FROM python:3.9-slim
-
-WORKDIR /python-claculator
-
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt
 COPY . .
-
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-CMD ["python", "app.py"]
+EXPOSE 8080
+CMD ["python","app.py"]
