@@ -1,9 +1,6 @@
-FROM golang:tip-bullseye
-
-WORKDIR /go-claculator
-
+FROM golang:1.22-bullseye
+WORKDIR /app
 COPY . .
-
-RUN go build -o jakir main.go
-
-CMD ["./jakir"]
+RUN go build -o app main.go
+EXPOSE 8080
+CMD ["./app"]
